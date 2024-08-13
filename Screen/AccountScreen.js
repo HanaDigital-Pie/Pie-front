@@ -2,28 +2,23 @@ import React, { useState } from 'react';
 import { StyleSheet, View, Image, Text, TouchableOpacity, TextInput,} from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-export default function LoginScreen({ navigation }) {
+export default function AccountScreen() {
   const [form, setForm] = useState({
     email: '',
     password: '',
+    password_confirm: '',
   });
 
   return (
     <View style={styles.container}>
       <KeyboardAwareScrollView>
         <View style={styles.header}>
-          <Image
-            alt="App Logo"
-            resizeMode="contain"
-            style={styles.headerImg}
-            source={require('../assets/logo.png')}
-          />
           <Text style={styles.title}>
-            당신의 더 나은 소비습관, <Text style={{ color: '#008485', fontWeight:'800' }}>PIE</Text>
+            회원가입 
           </Text>
-          <Text style={styles.subtitle}>
+          {/* <Text style={styles.subtitle}>
             이메일과 비밀번호를 입력해주세요
-          </Text>
+          </Text> */}
         </View>
 
         <View style={styles.form}>
@@ -56,6 +51,20 @@ export default function LoginScreen({ navigation }) {
             />
           </View>
 
+          <View style={styles.input}>
+            <Text style={styles.inputLabel}>비밀번호 확인</Text>
+            <TextInput
+              autoCorrect={false}
+              clearButtonMode="while-editing"
+              onChangeText={(password_confirm) => setForm({ ...form, password_confirm })}
+              placeholder="********"
+              placeholderTextColor="#6b7280"
+              style={styles.inputControl}
+              secureTextEntry={true}
+              value={form.password_confirm}
+            />
+          </View>
+
           <View style={styles.formAction}>
             <TouchableOpacity
               onPress={() => {
@@ -63,23 +72,25 @@ export default function LoginScreen({ navigation }) {
               }}
             >
               <View style={styles.btn}>
-                <Text style={styles.btnText}>로그인하기</Text>
+                <Text style={styles.btnText}>회원가입하기</Text>
               </View>
             </TouchableOpacity>
           </View>
 
-          <Text style={styles.formLink}>비밀번호를 잊으셨나요?</Text>
+          {/* <Text style={styles.formLink}>비밀번호를 잊으셨나요?</Text> */}
         </View>
       </KeyboardAwareScrollView>
 
       <TouchableOpacity
-        onPress={() => navigation.navigate('Account')}
+        onPress={() => {
+          // handle link
+        }}
+        style={{ marginTop: 'auto' }}
       >
-        <Text style={styles.formFooter}>
+        {/* <Text style={styles.formFooter}>
           계정이 없으신가요?{' '}
-          <Text style={{ textDecorationLine: 'underline' }} 
-          >회원가입하기</Text>
-        </Text>
+          <Text style={{ textDecorationLine: 'underline' }}>계정 생성하기</Text>
+        </Text> */}
       </TouchableOpacity>
     </View>
   );
@@ -87,7 +98,6 @@ export default function LoginScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 24,
     paddingHorizontal: 0,
     flexGrow: 1,
     flexShrink: 1,
@@ -100,7 +110,7 @@ const styles = StyleSheet.create({
     marginBottom: 6,
   },
   subtitle: {
-    fontSize: 13,
+    fontSize: 12,
     fontWeight: '500',
     color: '#929292',
   },
@@ -111,7 +121,6 @@ const styles = StyleSheet.create({
     marginVertical: 36,
   },
   headerImg: {
-    marginTop:'15%',
     width: 80,
     height: 80,
     alignSelf: 'center',
@@ -131,18 +140,17 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   formLink: {
-    fontSize: 14,
+    fontSize: 16,
     fontWeight: '600',
     color: '#008485',
     textAlign: 'center',
   },
   formFooter: {
-    fontSize: 14,
+    fontSize: 15,
     fontWeight: '600',
     color: '#222',
     textAlign: 'center',
     letterSpacing: 0.15,
-    marginBottom:'5%'
   },
   /** Input */
   input: {
@@ -179,7 +187,7 @@ const styles = StyleSheet.create({
     borderColor: '#008485',
   },
   btnText: {
-    fontSize: 16,
+    fontSize: 15,
     lineHeight: 26,
     fontWeight: '600',
     color: '#fff',
