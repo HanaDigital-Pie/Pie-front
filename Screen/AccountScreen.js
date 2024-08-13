@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Image, Text, TouchableOpacity, TextInput,} from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, TextInput } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 export default function AccountScreen() {
@@ -9,16 +9,31 @@ export default function AccountScreen() {
     password_confirm: '',
   });
 
+  const [error, setError] = useState('');
+
+  const handlePasswordChange = (password) => {
+    setForm({ ...form, password });
+    if (form.password_confirm && password !== form.password_confirm) {
+      setError('비밀번호가 맞지 않습니다');
+    } else {
+      setError('');
+    }
+  };
+
+  const handlePasswordConfirmChange = (password_confirm) => {
+    setForm({ ...form, password_confirm });
+    if (form.password && form.password !== password_confirm) {
+      setError('비밀번호가 맞지 않습니다');
+    } else {
+      setError('');
+    }
+  };
+
   return (
     <View style={styles.container}>
       <KeyboardAwareScrollView>
         <View style={styles.header}>
-          <Text style={styles.title}>
-            회원가입 
-          </Text>
-          {/* <Text style={styles.subtitle}>
-            이메일과 비밀번호를 입력해주세요
-          </Text> */}
+          <Text style={styles.title}>회원가입</Text>
         </View>
 
         <View style={styles.form}>
@@ -42,10 +57,13 @@ export default function AccountScreen() {
             <TextInput
               autoCorrect={false}
               clearButtonMode="while-editing"
-              onChangeText={(password) => setForm({ ...form, password })}
+              onChangeText={handlePasswordChange}
               placeholder="********"
               placeholderTextColor="#6b7280"
-              style={styles.inputControl}
+              style={[
+                styles.inputControl,
+                error ? styles.inputControlError : null,
+              ]}
               secureTextEntry={true}
               value={form.password}
             />
@@ -56,14 +74,19 @@ export default function AccountScreen() {
             <TextInput
               autoCorrect={false}
               clearButtonMode="while-editing"
-              onChangeText={(password_confirm) => setForm({ ...form, password_confirm })}
+              onChangeText={handlePasswordConfirmChange}
               placeholder="********"
               placeholderTextColor="#6b7280"
-              style={styles.inputControl}
+              style={[
+                styles.inputControl,
+                error ? styles.inputControlError : null,
+              ]}
               secureTextEntry={true}
               value={form.password_confirm}
             />
           </View>
+
+          {error ? <Text style={styles.errorText}>{error}</Text> : null}
 
           <View style={styles.formAction}>
             <TouchableOpacity
@@ -76,22 +99,8 @@ export default function AccountScreen() {
               </View>
             </TouchableOpacity>
           </View>
-
-          {/* <Text style={styles.formLink}>비밀번호를 잊으셨나요?</Text> */}
         </View>
       </KeyboardAwareScrollView>
-
-      <TouchableOpacity
-        onPress={() => {
-          // handle link
-        }}
-        style={{ marginTop: 'auto' }}
-      >
-        {/* <Text style={styles.formFooter}>
-          계정이 없으신가요?{' '}
-          <Text style={{ textDecorationLine: 'underline' }}>계정 생성하기</Text>
-        </Text> */}
-      </TouchableOpacity>
     </View>
   );
 }
@@ -109,26 +118,15 @@ const styles = StyleSheet.create({
     color: '#1D2A32',
     marginBottom: 6,
   },
-  subtitle: {
-    fontSize: 12,
-    fontWeight: '500',
-    color: '#929292',
-  },
   /** Header */
   header: {
     alignItems: 'center',
     justifyContent: 'center',
     marginVertical: 36,
   },
-  headerImg: {
-    width: 80,
-    height: 80,
-    alignSelf: 'center',
-    marginBottom: 36,
-  },
   /** Form */
   form: {
-    marginTop:15,
+    marginTop: 15,
     marginBottom: 24,
     paddingHorizontal: 24,
     flexGrow: 1,
@@ -138,19 +136,6 @@ const styles = StyleSheet.create({
   formAction: {
     marginTop: 4,
     marginBottom: 16,
-  },
-  formLink: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#008485',
-    textAlign: 'center',
-  },
-  formFooter: {
-    fontSize: 15,
-    fontWeight: '600',
-    color: '#222',
-    textAlign: 'center',
-    letterSpacing: 0.15,
   },
   /** Input */
   input: {
@@ -173,6 +158,15 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#C9D3DB',
     borderStyle: 'solid',
+  },
+  inputControlError: {
+    borderColor: 'red', // 오류 시 테두리 색상 변경
+  },
+  /** Error Text */
+  errorText: {
+    fontSize: 14,
+    color: 'red',
+    marginBottom: 16,
   },
   /** Button */
   btn: {

@@ -19,7 +19,7 @@ export default function LoginScreen({ navigation }) {
             source={require('../assets/logo.png')}
           />
           <Text style={styles.title}>
-            당신의 더 나은 소비습관, <Text style={{ color: '#008485', fontWeight:'800' }}>PIE</Text>
+            당신의 더 나은 소비습관, <Text style={{ color: '#008485',fontWeight:'800' }}>PIE</Text>
           </Text>
           <Text style={styles.subtitle}>
             이메일과 비밀번호를 입력해주세요
@@ -78,7 +78,7 @@ export default function LoginScreen({ navigation }) {
         <Text style={styles.formFooter}>
           계정이 없으신가요?{' '}
           <Text style={{ textDecorationLine: 'underline' }} 
-          >회원가입하기</Text>
+          >계정 생성하기</Text>
         </Text>
       </TouchableOpacity>
     </View>
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     marginVertical: 36,
   },
   headerImg: {
-    marginTop:'15%',
+    marginTop:'20%',
     width: 80,
     height: 80,
     alignSelf: 'center',
