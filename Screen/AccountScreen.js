@@ -7,6 +7,7 @@ export default function AccountScreen() {
     email: '',
     password: '',
     password_confirm: '',
+    name:'',
   });
 
   const [error, setError] = useState('');
@@ -49,6 +50,20 @@ export default function AccountScreen() {
               placeholderTextColor="#6b7280"
               style={styles.inputControl}
               value={form.email}
+            />
+          </View>
+
+          <View style={styles.input}>
+            <Text style={styles.inputLabel}>이름</Text>
+            <TextInput
+              autoCapitalize="none"
+              autoCorrect={false}
+              clearButtonMode="while-editing"
+              onChangeText={(name) => setForm({ ...form, name })}
+              placeholder="김하나"
+              placeholderTextColor="#6b7280"
+              style={styles.inputControl}
+              value={form.name}
             />
           </View>
 

@@ -58,9 +58,7 @@ export default function LoginScreen({ navigation }) {
 
           <View style={styles.formAction}>
             <TouchableOpacity
-              onPress={() => {
-                // handle onPress
-              }}
+              onPress={() => navigation.navigate('CardReport')}
             >
               <View style={styles.btn}>
                 <Text style={styles.btnText}>로그인하기</Text>
